@@ -40,6 +40,8 @@ namespace Square_Chaser
 
         int powerUpTime1 = 150;
         int powerUpTime2 = 150;
+
+        //State bool methods
         bool powerUp1 = false;
         bool powerUp2 = false;
 
@@ -71,16 +73,19 @@ namespace Square_Chaser
         public Form1()
         {
             InitializeComponent();
+
             int Randx = rand.Next(8, 392);
             int Randy = rand.Next(8, 392);
             int Rand1 = rand.Next(8, 392);
             int Rand2 = rand.Next(8, 392);
+
             obstacle = new Rectangle(Randx, Randy, 12, 12);
             speed = new Rectangle(Rand1, Rand2, 12, 12);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //State power ups
             if (powerUp1 == true)
             {
                 powerUpTime1--;
@@ -91,10 +96,10 @@ namespace Square_Chaser
                 powerUpTime2--;
             }
 
-            // ball.X += ballXSpeed;
-            // ball.Y += ballYSpeed;
+            //Show output
             scoreLabel.Text = $"{player1Score} | {player2Score}";
 
+            //Stablish if statements
             if (wDown == true && player1.Y > 0)
             {
                 player1.Y -= player1Speed;
@@ -114,7 +119,6 @@ namespace Square_Chaser
             {
                 player1.X += player1Speed;
             }
-
 
             if (upArrowDown == true && player2.Y > 0 + 2)
             {
@@ -139,7 +143,9 @@ namespace Square_Chaser
             //ball collision with player
             if (player1.IntersectsWith(ball))
             {
+                //Display sound
                 sound1.Play();
+
                 player1Score++;
                 int randY = rand.Next(8, 392);
                 int randX = rand.Next(8, 392);
@@ -147,13 +153,14 @@ namespace Square_Chaser
                 ball.Size = new Size(0, 0);
                 Refresh();
 
-                //Thread.Sleep(2000);
                 ball.Location = new Point(randX, randY);
                 ball.Size = new Size(12, 12);
             }
             else if (player2.IntersectsWith(ball))
             {
+                //Display sound
                 sound1.Play();
+
                 player2Score++;
                 int randY = rand.Next(10, 392);
                 int randX = rand.Next(10, 392);
@@ -161,13 +168,14 @@ namespace Square_Chaser
                 ball.Size = new Size(0, 0);
                 Refresh();
 
-                //dsThread.Sleep(2000);
                 ball.Location = new Point(randX, randY);
                 ball.Size = new Size(12, 12);
             }
             if (player1.IntersectsWith(obstacle))
             {
+                //Display sound
                 error.Play();
+
                 player1Score--;
                 int randY = rand.Next(8, 392);
                 int randX = rand.Next(8, 392);
@@ -175,13 +183,14 @@ namespace Square_Chaser
                 obstacle.Size = new Size(0, 0);
                 Refresh();
 
-                //Thread.Sleep(2000);
                 obstacle.Location = new Point(randX, randY);
                 obstacle.Size = new Size(12, 12);
             }
             else if (player2.IntersectsWith(obstacle))
             {
+                //Display sound
                 error.Play();
+
                 player2Score--;
                 int randY = rand.Next(10, 392);
                 int randX = rand.Next(10, 392);
@@ -189,26 +198,17 @@ namespace Square_Chaser
                 obstacle.Size = new Size(0, 0);
                 Refresh();
 
-                //dsThread.Sleep(2000);
                 obstacle.Location = new Point(randX, randY);
                 obstacle.Size = new Size(12, 12);
             }
 
-            //if (currentTime < timerTick + 150)
-            //{
-            // player1Speed = 7;
-            //}
-            //else
-            //{
-            // player1Speed = 4;
-            //}
-
             if (player1.IntersectsWith(speed))
             {
+                //Display sound
                 sound2.Play();
+
                 powerUpTime1 = 150;
                 powerUp1 = true;
-                //currentTime = timerTick;
                 player1Speed = 7;
 
                 int randY = rand.Next(8, 392);
@@ -218,12 +218,12 @@ namespace Square_Chaser
 
                 Refresh();
 
-                //Thread.Sleep(2000);
                 speed.Location = new Point(randX, randY);
                 speed.Size = new Size(12, 12);
             }
             else if (player2.IntersectsWith(speed))
             {
+                //Display sound
                 sound2.Play();
 
                 powerUpTime2 = 150;
@@ -235,7 +235,6 @@ namespace Square_Chaser
                 speed.Size = new Size(0, 0);
                 Refresh();
 
-                //Thread.Sleep(2000);
                 speed.Location = new Point(randX, randY);
                 speed.Size = new Size(12, 12);
             }
@@ -304,17 +303,10 @@ namespace Square_Chaser
             e.Graphics.FillRectangle(whiteBrush, ball);
             e.Graphics.FillRectangle(redBrush, obstacle);
             e.Graphics.FillRectangle(yellowBrush, speed);
-            ////e.Graphics.FillRectangle(redBrush, obstacle1);
-            ////e.Graphics.FillRectangle(redBrush, obstacle2);
-            ////e.Graphics.FillRectangle(redBrush, obstacle3);
-            ////e.Graphics.FillRectangle(redBrush, obstacle4);
-            ////e.Graphics.FillRectangle(redBrush, obstacle5);
-            ////e.Graphics.FillRectangle(redBrush, obstacle6);
-            ////e.Graphics.FillRectangle(redBrush, obstacle7);
-
         }
         private void squareChaser_KeyDown(object sender, KeyEventArgs e)
         {
+            //Create key code
             switch (e.KeyCode)
             {
                 case Keys.W:
@@ -346,6 +338,7 @@ namespace Square_Chaser
 
         private void squareChaser_KeyUp(object sender, KeyEventArgs e)
         {
+            //Create key code
             switch (e.KeyCode)
             {
                 case Keys.W:
