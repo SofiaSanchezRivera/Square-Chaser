@@ -10,17 +10,23 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Media;
 
-//Cambiar audios
+//Sofia Sanchez Rivera
+//November 2022
+//Create a Square Chaser
+
 namespace Square_Chaser
 {
     public partial class Form1 : Form
     {
+        //Create a random generator
         Random rand = new Random();
 
+        //Set rectangles
         Rectangle player1 = new Rectangle(0, 0, 15, 15);
         Rectangle player2 = new Rectangle(385, 385, 15, 15);
         Rectangle ball = new Rectangle(200, 200, 12, 12);
 
+        //Create variables
         int player1Score = 0;
         int player2Score = 0;
 
@@ -46,6 +52,8 @@ namespace Square_Chaser
         bool leftArrowDown = false;
         bool rightArrowDown = false;
 
+
+        //Draw the shapes
         SolidBrush blueBrush = new SolidBrush(Color.Blue);
         SolidBrush redBrush = new SolidBrush(Color.Red);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
@@ -55,9 +63,10 @@ namespace Square_Chaser
         Rectangle speed;
         Rectangle obstacle;
 
-        //SoundPlayer Ding = new SoundPlayer(Properties.Resources.Ding);
-        //SoundPlayer Error = new SoundPlayer(Properties.Resources.Error);
-        //SoundPlayer Car = new SoundPlayer(Properties.Resources.Car);
+        //Add sounds
+        SoundPlayer sound1 = new SoundPlayer(Properties.Resources.sound1);
+        SoundPlayer sound2 = new SoundPlayer(Properties.Resources.sound2);
+        SoundPlayer error = new SoundPlayer(Properties.Resources.error);
 
         public Form1()
         {
@@ -130,7 +139,7 @@ namespace Square_Chaser
             //ball collision with player
             if (player1.IntersectsWith(ball))
             {
-                //Ding.Play();
+                sound1.Play();
                 player1Score++;
                 int randY = rand.Next(8, 392);
                 int randX = rand.Next(8, 392);
@@ -144,7 +153,7 @@ namespace Square_Chaser
             }
             else if (player2.IntersectsWith(ball))
             {
-                //Ding.Play();
+                sound1.Play();
                 player2Score++;
                 int randY = rand.Next(10, 392);
                 int randX = rand.Next(10, 392);
@@ -158,7 +167,7 @@ namespace Square_Chaser
             }
             if (player1.IntersectsWith(obstacle))
             {
-                //Error.Play();
+                error.Play();
                 player1Score--;
                 int randY = rand.Next(8, 392);
                 int randX = rand.Next(8, 392);
@@ -172,7 +181,7 @@ namespace Square_Chaser
             }
             else if (player2.IntersectsWith(obstacle))
             {
-                //Error.Play();
+                error.Play();
                 player2Score--;
                 int randY = rand.Next(10, 392);
                 int randX = rand.Next(10, 392);
@@ -196,7 +205,7 @@ namespace Square_Chaser
 
             if (player1.IntersectsWith(speed))
             {
-                //Car.Play();
+                sound2.Play();
                 powerUpTime1 = 150;
                 powerUp1 = true;
                 //currentTime = timerTick;
@@ -215,7 +224,7 @@ namespace Square_Chaser
             }
             else if (player2.IntersectsWith(speed))
             {
-                //Car.Play();
+                sound2.Play();
 
                 powerUpTime2 = 150;
                 powerUp2 = true;
